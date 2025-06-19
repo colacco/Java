@@ -5,7 +5,7 @@ public class Main {
         Pessoa msg = new Pessoa();
         Musica show = new Musica();
         Carro carro1 = new Carro();
-        Aluno aluno1 = new Aluno();
+        Aluno0 aluno01 = new Aluno0();
         
         Scanner leitor = new Scanner(System.in);
         double valor = leitor.nextDouble();
@@ -36,9 +36,9 @@ public class Main {
         carro1.fichaTecnica();
         System.out.println();
 
-        aluno1.nome = "Ana Camargo";
-        aluno1.idade = 24;
-        aluno1.informar();
+        aluno01.nome = "Ana Camargo";
+        aluno01.idade = 24;
+        aluno01.informar();
 
     
     }    
