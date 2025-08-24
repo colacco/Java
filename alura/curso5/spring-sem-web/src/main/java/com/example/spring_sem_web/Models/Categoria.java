@@ -13,10 +13,8 @@ public class Categoria {
 
     private String nome;
 
-    @OneToMany(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Produto> produtos = new ArrayList<>();
-
-    public Categoria(){}
 
     public Categoria(String nome){
         this.nome = nome;
@@ -30,12 +28,12 @@ public class Categoria {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Produto> getProdutos() {
         return produtos;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setProdutos(List<Produto> produtos) {

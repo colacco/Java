@@ -2,6 +2,7 @@ package com.example.spring_sem_web.Models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,15 +22,20 @@ public class Produto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    @ManyToMany
-    @JoinTable(name = "produto_pedido",  joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns =  @JoinColumn(name = "pedido_id"))
-    private Set<Pedido> pedidos;
+    @ManyToMany(mappedBy = "produtos")
+    private Set<Pedido> pedidos = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
     public Produto() {}
 
-    public Produto(String nome, double preco){
+    public Produto(String nome, double preco, Categoria categoria,Fornecedor fornecedor){
         this.nome = nome;
         this.preco = preco;
+        this.categoria = categoria;
+        this.fornecedor = fornecedor;
     }
 
     public String getNome() {
@@ -66,5 +72,13 @@ public class Produto {
 
     public void setPedidos(Set<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

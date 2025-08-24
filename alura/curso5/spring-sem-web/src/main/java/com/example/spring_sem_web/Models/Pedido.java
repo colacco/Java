@@ -3,7 +3,7 @@ package com.example.spring_sem_web.Models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,10 +13,14 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "pedidos")
-    private Set<Produto> produtos;
+
+    @ManyToMany
+    @JoinTable(name = "produto_pedido",  joinColumns = @JoinColumn(name = "pedido_id"), inverseJoinColumns =  @JoinColumn(name = "produto_id"))
+    private Set<Produto> produtos = new HashSet<>();
 
     private LocalDate date;
+
+    public Pedido() {}
 
     public Pedido(LocalDate date, Set<Produto> produtos) {
         this.date = date;
@@ -37,5 +41,9 @@ public class Pedido {
 
     public void setProdutos(Set<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

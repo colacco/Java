@@ -12,20 +12,20 @@ public class Principal {
     private final ProdutoRepository produtoRepository;
     private final ClienteRepository  clienteRepository;
     private final FuncionarioRepository funcionarioRepository;
+    private final FornecedorRepository fornecedorRepository;
 
 
-    public Principal(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository, FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository){
+    public Principal(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository, FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository, FornecedorRepository fornecedorRepository){
         this.categoriaRepository = categoriaRepository;
         this.pedidoRepository = pedidoRepository;
         this.produtoRepository = produtoRepository;
         this.clienteRepository = clienteRepository;
         this.funcionarioRepository = funcionarioRepository;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     public void exibeMenu(){
-        Set<Produto> produtos = Set.of(produtoRepository.getReferenceById(1L), produtoRepository.getReferenceById(1L), produtoRepository.getReferenceById(3L));
-        Pedido pedido = new Pedido(LocalDate.now(), produtos);
-
-        pedidoRepository.save(pedido);
+        Produto produto = new Produto("Jaca", 8.75, categoriaRepository.getReferenceById(3L), fornecedorRepository.getReferenceById(3L));
+        produtoRepository.save(produto);
     }
 }

@@ -28,9 +28,12 @@ public class SpringSemWebApplication implements CommandLineRunner {
     @Autowired
     public FuncionarioRepository funcionarioRepository;
 
+    @Autowired
+    public FornecedorRepository fornecedorRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        Principal principal = new Principal(categoriaRepository, produtoRepository, pedidoRepository, funcionarioRepository, clienteRepository);
+        Principal principal = new Principal(categoriaRepository, produtoRepository, pedidoRepository, funcionarioRepository, clienteRepository, fornecedorRepository);
         principal.exibeMenu();
     }
 }
