@@ -14,7 +14,7 @@ public class Pedido {
     private Long id;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "produto_pedido",  joinColumns = @JoinColumn(name = "pedido_id"), inverseJoinColumns =  @JoinColumn(name = "produto_id"))
     private Set<Produto> produtos = new HashSet<>();
 
@@ -45,5 +45,12 @@ public class Pedido {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido: " +
+                "\ndate = " + date +
+                ",\nid = " + id;
     }
 }

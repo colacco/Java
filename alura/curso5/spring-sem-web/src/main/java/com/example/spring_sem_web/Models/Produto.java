@@ -22,7 +22,7 @@ public class Produto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "produtos")
+    @ManyToMany(mappedBy = "produtos", fetch = FetchType.EAGER)
     private Set<Pedido> pedidos = new HashSet<>();
 
     @ManyToOne
@@ -80,5 +80,16 @@ public class Produto {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto: " +
+                "\nid =" + id +
+                ",\n nome = " + nome +
+                ",\n preco = " + preco +
+                ",\n categoria = " + categoria +
+                ",\n fornecedor = " + fornecedor +
+                '\n';
     }
 }

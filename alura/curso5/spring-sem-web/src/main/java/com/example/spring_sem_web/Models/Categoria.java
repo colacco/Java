@@ -16,6 +16,8 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Produto> produtos = new ArrayList<>();
 
+    public Categoria(){}
+
     public Categoria(String nome){
         this.nome = nome;
     }
@@ -42,5 +44,10 @@ public class Categoria {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }
