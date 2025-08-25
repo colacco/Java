@@ -18,7 +18,7 @@ public class Produto {
     @Column(name = "valor")
     private double preco;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
