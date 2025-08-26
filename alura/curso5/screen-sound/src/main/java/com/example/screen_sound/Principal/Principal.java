@@ -8,6 +8,7 @@ import com.example.screen_sound.Repositories.MusicaRepository;
 import com.example.screen_sound.Service.ConsultaGemini;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Principal {
@@ -56,49 +57,50 @@ public class Principal {
                     break;
                 case  6:
                     dadosArtista();
+                    break;
                 default:
+                    System.out.println("Opção inválida");
+                    break;
             }
         }
     }
 
     private void cadastroArtista(){
-        System.out.print("Insira o nome do artista: ");
-        String nome = leitor.nextLine();
+        String cadastrarNovo = "S";
 
-        System.out.print("Selecione o tipo (Solo, dupla, grupo ou banda): ");
-        String tipo = leitor.nextLine();
+        while(cadastrarNovo.equalsIgnoreCase("s")) {
+            System.out.print("Insira o nome do artista: ");
+            String nome = leitor.nextLine();
 
-        Categoria categoria = Categoria.fromString(tipo);
+            System.out.print("Selecione o tipo (Solo, dupla, grupo ou banda): ");
+            String tipo = leitor.nextLine();
+            Categoria categoria = Categoria.valueOf(tipo.toUpperCase());
 
-        Artista artista = new Artista(nome,categoria);
-        artistasRepository.save(artista);
-        System.out.println("Dados inseridos!");
+            Artista artista = new Artista(nome, categoria);
+            artistasRepository.save(artista);
+
+            System.out.println("Cadastrar novo artista? (S/N)");
+            cadastrarNovo = leitor.nextLine();
+        }
     }
 
     private void cadastroMusica(){
-        boolean condicao = true;
-        Artista artista = null;
         String nomeArtista;
 
-        while (condicao) {
             System.out.print("Insira o nome do artista: ");
             nomeArtista = leitor.nextLine();
 
-            for (Artista a : artistasRepository.findAll()) {
-                if (a.getNome().equalsIgnoreCase(nomeArtista)){
-                    condicao = false;
-                    artista = a;
-                    break;
-                }
+            Optional<Artista> artista = artistasRepository.findByNomeContainingIgnoreCase(nomeArtista);
+            if (artista.isPresent()){
+                System.out.print("Insira o título da música: ");
+                String tiulo = leitor.nextLine();
+
+                Musica musica = new Musica(tiulo, List.of(artista.get()));
+                musicaRepository.save(musica);
+                System.out.println("Dados inseridos!");
+            } else {
+                System.out.println("Artista não encontrado.");
             }
-        }
-
-        System.out.print("Insira o nome da música: ");
-        String nome = leitor.nextLine();
-
-        Musica musica = new Musica(nome, List.of(artista));
-        musicaRepository.save(musica);
-        System.out.println("Dados inseridos!");
     }
 
     private void listarArtista(){

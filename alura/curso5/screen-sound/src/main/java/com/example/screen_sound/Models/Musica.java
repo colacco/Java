@@ -51,7 +51,6 @@ public class Musica {
     @Override
     public String toString() {
         return "Musica:" +
-                "\n id = " + id +
                 "\n nome = " + nome +
                 "\n artistas = " + artistas.getFirst().getNome();
     }

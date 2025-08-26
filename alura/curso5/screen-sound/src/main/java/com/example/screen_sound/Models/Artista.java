@@ -2,6 +2,7 @@ package com.example.screen_sound.Models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,13 +12,14 @@ public class Artista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
     @ManyToMany(mappedBy = "artistas")
-    private List<Musica> musicas;
+    private List<Musica> musicas = new ArrayList<>();
 
     public Artista(){}
 
@@ -61,7 +63,6 @@ public class Artista {
     @Override
     public String toString() {
         return "Artista: " +
-                "\nid = " + id +
                 "\nnome = " + nome +
                 "\ncategoria = " + categoria + "\n\n";
     }

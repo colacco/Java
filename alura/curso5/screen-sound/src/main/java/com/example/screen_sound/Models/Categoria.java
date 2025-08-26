@@ -13,16 +13,6 @@ public enum Categoria {
         this.tipo = tipo;
     }
 
-    public static Categoria fromString(String text){
-        for(Categoria categoria : Categoria.values()){
-            if (categoria.tipo.equalsIgnoreCase(text)){
-                return categoria;
-            }
-        }
-        throw new IllegalArgumentException("Não existe essa opção: " + text);
-    }
-
-
     public String getTipo(){
         return tipo;
     }
